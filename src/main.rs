@@ -1,40 +1,15 @@
-use rand::Rng;
-use rand::distributions::{Distribution, Standard};
-#[derive(Debug)]
-pub struct Game {
-    Board: Vec<Vec<bool>>,
-    Rounds: i64,
-}
-//OUTSIDE IS X, INSIDE IS Y
-impl Game {
-    pub fn new(xcoord: i32, ycoord: i32, percent: i8) -> Game {
-        Game {
-            Board: {
-                //OUTSIDE IS X, INSIDE IS Y
-                let mut board: Vec<Vec<bool>> = vec![vec![false; *&ycoord as usize]; *&xcoord as usize];
-                let mut rng = rand::thread_rng();
-                for o in 0.. *&xcoord {
-                    for i in 0.. *&ycoord {
-                        if percent <= 99{
-                            board[o as usize][i as usize] = true;
-                        }
-                        let val: i8 = (rng.gen::<i8>() % 100);
-                        if val <= *&percent{
-                            board[o as usize][i as usize] = true;
-                        }
-                        else {
-                            board[o as usize][i as usize] = false;
-                        }
-                    }
-                }
-                board
-            },
-            Rounds: 0,
-        }
-    }
-}
+use crate::game::Game;
+mod game;
 
 fn main() {
-    let game = Game::new(5, 5, 5);
-    println!("{:#?}", game);
+    let mut game = Game::new(50, 100, 10);
+    loop {
+        game.print();
+        game.update();
+        let time = std::time::Duration::from_millis(65);
+        std::thread::sleep(time);
+        print!("\x1B[2J\x1B[1;1H");
+    }
 }
+//let time = std::time::Duration::from_millis(65);
+// std::thread::sleep(time);

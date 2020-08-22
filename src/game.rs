@@ -47,7 +47,9 @@ impl Game {
                             continue;
                         }
 
-                        if old_board[((o as i32 + *dout as i32) % self.board.len() as i32) as usize][((i as i32 + *din as i32) % self.board[0].len() as i32) as usize] {
+                        if old_board[((o as i32 + *dout as i32) % self.board.len() as i32) as usize]
+                            [((i as i32 + *din as i32) % self.board[0].len() as i32) as usize]
+                        {
                             count += 1;
                         }
                     }

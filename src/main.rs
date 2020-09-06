@@ -1,13 +1,16 @@
 use crate::game::Game;
 mod game;
-use std::str::FromStr;
 extern crate clap;
-use clap::{App, Arg, Clap};
+use clap::Clap;
 fn main() {
     #[derive(Clap)]
-    #[clap(version = "1.0", author = "Sycration <sycration@gmail.com>", about = "Terminal implementation of Conway's game of life. Use the '-h' or '--help' flag for help.")]
+    #[clap(
+        version = "1.1",
+        author = "Sycration <sycration@gmail.com>",
+        about = "Terminal implementation of Conway's game of life. Use the '-h' or '--help' flag for help."
+    )]
     struct Opts {
-    //make commandline options
+        //make commandline options
         #[clap(short, default_value = "15")]
         percent_alive: String,
         #[clap(short)]
@@ -15,12 +18,16 @@ fn main() {
         #[clap(short)]
         ylength: i32,
         #[clap(short, default_value = "65")]
-        time: String
+        time: String,
     }
 
     let opts: Opts = Opts::parse(); //get commandline flags
     let time: i32 = opts.time.parse::<i32>().unwrap_or(65);
-    let mut game = Game::new(opts.ylength, opts.xlength, opts.percent_alive.parse::<i32>().unwrap_or(15));
+    let mut game = Game::new(
+        opts.ylength,
+        opts.xlength,
+        opts.percent_alive.parse::<i32>().unwrap_or(15),
+    );
     loop {
         game.print();
         game.update();

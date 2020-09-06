@@ -1,4 +1,5 @@
-use rand::Rng;
+use rand::distributions::WeightedIndex;
+use rand::prelude::*;
 
 #[derive(Debug)]
 pub struct Game {
@@ -9,21 +10,23 @@ pub struct Game {
 //OUTSIDE IS X, INSIDE IS Y
 impl Game {
     pub fn new(xcoord: i32, ycoord: i32, percent: i32) -> Game {
+        if percent > 100 {
+            println!("A percentage above 100 is meaningless!");
+            std::process::exit(0);
+        }
         Game {
             board: {
                 //OUTSIDE IS X, INSIDE IS Y
                 let mut board: Vec<Vec<bool>> = vec![vec![false; ycoord as usize]; xcoord as usize];
                 let mut rng = rand::thread_rng();
+                let choices = [true, false];
+                let weights = [percent, (100 - percent)];
+                let dist = WeightedIndex::new(&weights).unwrap();
                 for o in 0..xcoord {
                     for i in 0..ycoord {
-                        if percent <= 99 {
+                        //let val: i32 = rng.gen::<i32>() % 100; //random number less than 100
+                        if choices[dist.sample(&mut rng)] {
                             board[o as usize][i as usize] = true;
-                        }
-                        let val: i32 = rng.gen::<i32>() % 100;
-                        if val < percent {
-                            board[o as usize][i as usize] = true;
-                        } else {
-                            board[o as usize][i as usize] = false;
                         }
                     }
                 }
@@ -68,7 +71,7 @@ impl Game {
         for o in 0..self.board.len() {
             for i in 0..self.board[0].len() {
                 match self.board[o][i] {
-                    true => print!("#"),
+                    true => print!("█"),
                     _ => print!(" "),
                 }
             }

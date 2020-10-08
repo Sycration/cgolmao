@@ -19,14 +19,26 @@ fn main() {
         ylength: i32,
         #[clap(short, default_value = "65")]
         time: String,
+        #[clap(short, default_value = "23")]
+        live: String,
+        #[clap(short, default_value = "3")]
+        born: String,
     }
 
     let opts: Opts = Opts::parse(); //get commandline flags
     let time: i32 = opts.time.parse::<i32>().unwrap_or(65);
+    let live: String = opts.live.chars().map(|x| {
+        if x.is_numeric() { x } else {' '}
+    }).collect();
+    let born: String = opts.born.chars().map(|x| {
+        if x.is_numeric() { x } else {' '}
+    }).collect();
     let mut game = Game::new(
         opts.ylength,
         opts.xlength,
         opts.percent_alive.parse::<i32>().unwrap_or(15),
+        live,
+        born,
     );
     loop {
         game.print();

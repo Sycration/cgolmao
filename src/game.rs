@@ -5,11 +5,13 @@ use rand::prelude::*;
 pub struct Game {
     pub board: Vec<Vec<bool>>,
     pub rounds: i64,
+    pub live: String,
+    pub born: String,
 }
 
 //OUTSIDE IS X, INSIDE IS Y
 impl Game {
-    pub fn new(xcoord: i32, ycoord: i32, percent: i32) -> Game {
+    pub fn new(xcoord: i32, ycoord: i32, percent: i32, live: String, born: String) -> Game {
         if percent > 100 {
             println!("A percentage above 100 is meaningless!");
             std::process::exit(0);
@@ -33,6 +35,9 @@ impl Game {
                 board
             },
             rounds: 0,
+            born,
+            live,
+
         }
     }
 
@@ -58,10 +63,10 @@ impl Game {
                     }
                 }
                 if !old_board[o % self.board.len()][i % self.board[0].len()] {
-                    if count == 3 {
+                    if self.born.contains(&count.to_string()) {
                         self.board[o % old_board.len()][i % old_board[0].len()] = true;
                     }
-                } else if count != 2 && count != 3 {
+                } else if !self.live.contains(&count.to_string()) {
                     self.board[o % old_board.len()][i % old_board[0].len()] = false;
                 }
             }

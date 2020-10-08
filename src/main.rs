@@ -5,23 +5,23 @@ use clap::Clap;
 fn main() {
     #[derive(Clap)]
     #[clap(
-        version = "1.1",
+        version = "1.2",
         author = "Sycration <sycration@gmail.com>",
-        about = "Terminal implementation of Conway's game of life. Use the '-h' or '--help' flag for help."
+        about = "Terminal implementation of Conway's game of life. Use the '-h' or '--help' flag for help.\nDefault born and live settings is Conway's game."
     )]
     struct Opts {
         //make commandline options
-        #[clap(short, default_value = "15")]
+        #[clap(short, default_value = "15", help = "What percent of the board starts alive")]
         percent_alive: String,
-        #[clap(short)]
+        #[clap(short, help = "How many cells wide is the board")]
         xlength: i32,
-        #[clap(short)]
+        #[clap(short, help = "How many cells tall in the board")]
         ylength: i32,
-        #[clap(short, default_value = "65")]
+        #[clap(short, default_value = "65", help = "How many milliseconds between refreshes")]
         time: String,
-        #[clap(short, default_value = "23")]
+        #[clap(short, default_value = "23", help = "What amount of neighbors will keep a cell alive")]
         live: String,
-        #[clap(short, default_value = "3")]
+        #[clap(short, default_value = "3", help = "What amount of neighbors will make a cell be born")]
         born: String,
     }
 

@@ -76,8 +76,8 @@ impl Game {
         for o in 0..self.board.len() {
             for i in 0..self.board[0].len() {
                 match self.board[o][i] {
-                    true => print!("█"),
-                    _ => print!(" "),
+                    true => print!("██"),
+                    _ => print!("  "),
                 }
             }
             println!()

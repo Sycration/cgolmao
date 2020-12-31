@@ -11,17 +11,23 @@ fn main() {
     )]
     struct Opts {
         //make commandline options
-        #[clap(short, default_value = "15", help = "What percent of the board starts alive")]
+        ///What percent of the board starts alive
+        #[clap(short, default_value = "15")]
         percent_alive: String,
-        #[clap(short, help = "How many cells wide is the board")]
+        ///How many cells wide is the board
+        #[clap(short)]
         xlength: i32,
-        #[clap(short, help = "How many cells tall in the board")]
+        ///How many cells tall in the board
+        #[clap(short)]
         ylength: i32,
-        #[clap(short, default_value = "65", help = "How many milliseconds between refreshes")]
+        ///How many milliseconds between refreshes
+        #[clap(short, default_value = "65")]
         time: String,
-        #[clap(short, default_value = "23", help = "What amount of neighbors will keep a cell alive")]
+        ///What amount of neighbo!rs will keep a cell alive
+        #[clap(short, default_value = "23")]
         live: String,
-        #[clap(short, default_value = "3", help = "What amount of neighbors will make a cell be born")]
+        ///What amount of neighbors will make a cell be born
+        #[clap(short, default_value = "3")]
         born: String,
     }
 
